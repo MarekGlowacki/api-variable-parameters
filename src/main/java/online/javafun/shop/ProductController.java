@@ -1,5 +1,7 @@
 package online.javafun.shop;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -22,12 +24,21 @@ class ProductController {
     }
 
     @GetMapping("/{id}")
-    Product getProductById(@PathVariable Integer id) {
-        return productRepository.findById(id);
+    ResponseEntity<Product> getProductById(@PathVariable Integer id) {
+        return productRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .ore
     }
 
     @GetMapping("/{id}/producer")
-    Producer getProducerByProductId(@PathVariable Integer id) {
-        return productRepository.findById(id).getProducer();
+    ResponseEntity<Producer> getProducerByProductId(@PathVariable Integer id) {
+        return productRepository.findById(id)
+                .map(producer -> ResponseEntity.ok(producer))
+    }
+
+    @GetMapping("/example")
+    @ResponseStatus(HttpStatus.CREATED)
+    void example() {
+
     }
 }
