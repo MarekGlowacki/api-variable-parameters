@@ -31,7 +31,7 @@ class ProductRepository {
                 .toList();
     }
 
-    Optional findById(int id) {
+    Optional<Product> findById(int id) {
         if (id > products.size()) {
             return Optional.empty();
         } else {
